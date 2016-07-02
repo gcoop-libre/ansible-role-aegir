@@ -47,14 +47,14 @@
     depth: 1 # speeds things up
     version: "{{ aegir_provision_version }}"
     update: "{{ aegir_provision_update }}"
-  sudo: yes
-  sudo_user: "{{ aegir_user }}"
+  become: yes
+  become_user: "{{ aegir_user }}"
 - name: Clear Drush cache for Provision extension
   command: drush @none cc drush
   args:
     creates: "{{ aegir_root }}/.drush/cache/"
-  sudo: yes
-  sudo_user: "{{ aegir_user }}"
+  become: yes
+  become_user: "{{ aegir_user }}"
 
 # Ref.: http://community.aegirproject.org/installing/manual#Apache_configuration
 - include: setup-apache.yml
@@ -78,22 +78,22 @@
   command: "drush make {{ aegir_root }}/aegir.make {{ aegir_root }}/hostmaster-{{ aegir_platform_version }} --working-copy --no-gitinfofile"
   args:
     creates: "{{ aegir_root }}/hostmaster-{{ aegir_platform_version }}/"
-  sudo: yes
-  sudo_user: "{{ aegir_user }}"
+  become: yes
+  become_user: "{{ aegir_user }}"
 
 # Ref.: # http://community.aegirproject.org/installing/manual#Running_hostmaster-install
 - name: Install Aegir front-end
   command: "drush @none --yes hostmaster-install --debug --working-copy --aegir_db_host={{ aegir_db_host }} --aegir_db_user={{ aegir_db_user }} --aegir_db_pass={{ aegir_db_pass }} --aegir_version={{ aegir_platform_version }} {{ aegir_frontend_url }} --strict=0 --root={{ aegir_root }}/hostmaster-{{ aegir_platform_version }}/"
   args:
     creates: "{{ aegir_root }}/hostmaster-{{ aegir_platform_version }}/sites/{{ aegir_frontend_url }}/"
-  sudo: yes
-  sudo_user: "{{ aegir_user }}"
+  become: yes
+  become_user: "{{ aegir_user }}"
 
 - include: generate-keypair.yml
   when: aegir_generate_keypair
 
 - name: Ensure Hosting is recognized as enabled
   shell: drush @hostmaster cc drush
-  sudo: yes
-  sudo_user: "{{ aegir_user }}"
+  become: yes
+  become_user: "{{ aegir_user }}"
   changed_when: False
