@@ -3,9 +3,9 @@ dependencies:
   - 'git+http://github.com/GetValkyrie/ansible-role-drush.git,,getvalkyrie.drush'
 
 galaxy_info:
-  author: ergonlogic
+  author: gcoop-libre
   description: Aegir - Drupal hosting and provisioning
-  company: "GetValyrie"
+  company: gcoop Cooperativa de Software Libre
   license: "license (BSD, MIT)"
   min_ansible_version: 1.4
   platforms:
