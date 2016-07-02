@@ -20,7 +20,7 @@ Available variables are listed below, along with default values (see `defaults/m
     - hosts: servers
       roles:
         - { role: getvalkyrie.mysql }
-        - { role: getvalkyrie.aegir }
+        - { role: gcoop-libre.aegir }
 
 After the playbook runs, the Aegir front-end site will be available, as will the Drush extensions (Provision, et. al.) that do the heavy lifting.
 
