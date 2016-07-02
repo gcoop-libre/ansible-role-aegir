@@ -4,5 +4,5 @@
   args:
     creates: "{{ aegir_root }}/.ssh/id_rsa"
     creates: "{{ aegir_root }}/.ssh/id_rsa.pub"
-  sudo: yes
-  sudo_user: "{{ aegir_user }}"
+  become: yes
+  become_user: "{{ aegir_user }}"

@@ -7,7 +7,7 @@ galaxy_info:
   description: Aegir - Drupal hosting and provisioning
   company: gcoop Cooperativa de Software Libre
   license: "license (BSD, MIT)"
-  min_ansible_version: 1.4
+  min_ansible_version: 2.0
   platforms:
   - name: EL
     versions:
@@ -39,6 +39,8 @@ galaxy_info:
   - name: Debian
     versions:
     - all
-  categories:
+  galaxy_tags:
+    - aegir
     - development
+    - hosting
     - web
