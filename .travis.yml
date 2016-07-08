@@ -2,46 +2,28 @@
 language: python
 python: "2.7"
 
-env:
-  - SITE=test.yml
+# Use the new container infrastructure
+sudo: false
 
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install curl
-  # Avoid harmless (but annoying) warnings.
-  - mkdir ~/.python-eggs
-  - chmod 700 ~/.python-eggs
-  # Completely remove mysql
-  - sudo apt-get remove -y --purge mysql-server mysql-client mysql-common
-  - sudo apt-get autoremove -y
-  - sudo apt-get autoclean
-  - sudo rm -rf /var/lib/mysql
-  - sudo rm -rf /root/.my.cnf
+# Install ansible
+addons:
+  apt:
+    packages:
+    - python-pip
 
 install:
-  # Install Ansible from sources.
-  - curl https://raw.githubusercontent.com/GetValkyrie/ansible-bootstrap/master/install-ansible.sh|sudo /bin/sh
+  # Install ansible
+  - pip install ansible
 
-  # Add ansible.cfg to pick up roles path.
-  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+  # Check ansible version
+  - ansible --version
 
-  # Install required dependencies.
-  - ansible-galaxy install http://github.com/getvalkyrie/ansible-role-mysql,,getvalkyrie.mysql
-  - ansible-galaxy install http://github.com/getvalkyrie/ansible-role-drush,,getvalkyrie.drush
+  # Create ansible.cfg with correct roles_path
+  - printf '[defaults]\nroles_path=../' >ansible.cfg
 
 script:
-  # Check the role/playbook's syntax.
-  - "ansible-playbook -i tests/inventory tests/$SITE --syntax-check"
+  # Basic role syntax check
+  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
 
-  # Run the role/playbook with ansible-playbook.
-  - "ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo"
-
-  # Run the role/playbook again, checking to make sure it's idempotent.
-  - >
-    ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
-    | grep -q 'changed=0.*failed=0'
-    && (echo 'Idempotence test: pass' && exit 0)
-    || (echo 'Idempotence test: fail' && exit 1)
-
-  # Check if Aegir is installed and working.
-  - sudo -u aegir -H drush @hm status | grep eldir
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
