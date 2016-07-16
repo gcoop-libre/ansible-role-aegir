@@ -39,7 +39,6 @@ Database information for Aegir.
 
     aegir_manage_dependencies: true
     aegir_dependencies:
-      - apache2
       - mysql-client
       - libapache2-mod-php5
       - php5
