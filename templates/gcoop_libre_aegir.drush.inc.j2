@@ -1,0 +1,107 @@
+<?php
+// {{ ansible_managed }}
+/**
+ * @file
+ * Functionalities for Aegir Servers.
+ */
+
+/**
+ * Implements hook_provision_drupal_config().
+ *
+ * Custom variables for settings.php files
+ */
+function gcoop_libre_aegir_provision_drupal_config($uri, $data) {
+  $extra_config = array();
+
+{% if aegir_settings_mail_disable %}
+  $extra_config[] = '// Write mails to files in temporary directory (needs devel enabled).';
+  $extra_config[] = '$conf[\'mail_system\'] = array(\'default-system\' => \'DevelMailLog\');';
+{% endif %}
+
+  $identity = strtolower($uri);
+
+  $settings = array();
+{% if aegir_settings_syslog %}
+  $settings['syslog_facility'] = '{{ aegir_settings_syslog_facility }}';
+  $settings['syslog_format'] = '{{ aegir_settings_syslog_format }}';
+  $settings['syslog_identity'] = '{{ aegir_settings_syslog_prefix }}' . preg_replace('/[^a-z0-9]/', '_', $identity);
+{% endif %}
+
+{% for aegir_settings_extra in aegir_settings_extras %}
+  $settings['{{ aegir_settings_extra.name }}'] = '{{ aegir_settings_extra.value }}';
+{% endfor %}
+
+  foreach($settings as $key => $value) {
+    $extra_config[] = '$conf[\'' . $key . '\'] = \'' . $value . '\';';
+  }
+
+  return $extra_config;
+}
+
+/**
+ * Implements hook_provision_apache_server_config
+ *
+ * Custom configs for servers
+ */
+function gcoop_libre_aegir_provision_apache_server_config($data) {
+  $extra_config = array();
+
+  if (
+    (!empty($data['application_name'])) &&
+    ($data['application_name'] == 'apache') &&
+    (!empty($data['http_ssl_port']))
+  ) {
+    $extra_config[] = 'SSLCipherSuite {{ aegir_server_ssl_cipher_suite }}';
+    $extra_config[] = 'SSLProtocol {{ aegir_server_ssl_protocol }}';
+    $extra_config[] = 'SSLHonorCipherOrder {{ aegir_server_ssl_honor_cipher_order }}';
+    $extra_config[] = 'SSLCompression {{ aegir_server_ssl_compression }}';
+    $extra_config[] = 'SSLUseStapling {{ aegir_server_ssl_use_stapling }}';
+
+{% for aegir_server_ssl_extra in aegir_server_ssl_extras %}
+    $extra_config[] = '{{ aegir_server_ssl_extra.name }} {{ aegir_server_ssl_extra.value }}';
+{% endfor %}
+  }
+
+{% for aegir_server_extra in aegir_server_extras %}
+  $extra_config[] = '{{ aegir_server_extra.name }} {{ aegir_server_extra.value }}';
+{% endfor %}
+
+  return($extra_config);
+}
+
+/**
+ * Implements hook_provision_apache_vhost_config
+ *
+ * Custom configs for Virtual Hosts
+ */
+function gcoop_libre_aegir_provision_apache_vhost_config($uri, $data) {
+  $extra_config = array();
+
+  $extra_config[] = 'UseCanonicalName {{ aegir_vhost_use_canonical_name }}';
+{% if aegir_vhost_separate_logs %}
+  $extra_config[] = 'ErrorLog ${APACHE_LOG_DIR}/' . $uri . '.error.log';
+  $extra_config[] = 'CustomLog ${APACHE_LOG_DIR}/' . $uri . '.access.log combined';
+{% endif %}
+{% if aegir_vhost_deflate %}
+  $extra_config[] = 'SetOutputFilter DEFLATE';
+  $extra_config[] = 'BrowserMatch ^Mozilla/4 gzip-only-text/html';
+  $extra_config[] = 'BrowserMatch ^Mozilla/4\.0[678] no-gzip';
+  $extra_config[] = 'BrowserMatch \bMSIE !no-gzip !gzip-only-text/html';
+  $extra_config[] = 'SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|rar|zip|exe|flv|mov|wma|mp3|avi|swf|mp?g)$ no-gzip dont-vary';
+  $extra_config[] = 'Header append Vary User-Agent env=!dont-vary';
+{% endif %}
+{% if aegir_vhost_fileetag %}
+  $extra_config[] = 'FileETag MTime Size';
+{% endif %}
+  $extra_config[] = 'Header always set X-Frame-Options {{ aegir_vhost_frame_options }}';
+  $extra_config[] = 'Header always set X-Content-Type-Options nosniff';
+{% if aegir_vhost_sts %}
+  $extra_config[] = 'Header always set Strict-Transport-Security "max-age={{ aegir_vhost_sts_max_age }}; {% if aegir_vhost_sts_subdomains %}includeSubDomains{% endif %}" env=HTTPS';
+{% endif %}
+
+{% for aegir_vhost_extra in aegir_vhost_extras %}
+  $extra_config[] = '{{ aegir_vhost_extra.name }} {{ aegir_vhost_extra.value }}';
+{% endfor %}
+
+  return($extra_config);
+}

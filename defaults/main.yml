@@ -30,3 +30,25 @@ aegir_makefile_contents: "{{ lookup('file', aegir_makefile) }}"
 aegir_platform_version: 7.x-3.x
 aegir_frontend_url: aegir.local
 aegir_generate_keypair: true
+aegir_settings_mail_disable: false
+aegir_settings_syslog: true
+aegir_settings_syslog_facility: 128
+aegir_settings_syslog_format: '!base_url|!timestamp|!type|!ip|!request_uri|!referer|!uid|!link|!message'
+aegir_settings_syslog_prefix: drupal_
+aegir_settings_extras: []
+aegir_server_ssl_cipher_suite: 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH'
+aegir_server_ssl_protocol: 'All -SSLv2 -SSLv3'
+aegir_server_ssl_honor_cipher_order: 'On'
+aegir_server_ssl_compression: 'Off'
+aegir_server_ssl_use_stapling: 'On'
+aegir_server_ssl_extras: []
+aegir_server_extras: []
+aegir_vhost_use_canonical_name: 'On'
+aegir_vhost_separate_logs: true
+aegir_vhost_deflate: true
+aegir_vhost_fileetag: true
+aegir_vhost_frame_options: SAMEORIGIN
+aegir_vhost_sts: true
+aegir_vhost_sts_max_age: 63072000
+aegir_vhost_sts_subdomains: true
+aegir_vhost_extras: []
