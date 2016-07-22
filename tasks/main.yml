@@ -18,6 +18,7 @@
   group:
     name: "{{ aegir_user }}"
     system: yes
+
 - name: Create '{{ aegir_user }}' user
   user:
     name: "{{ aegir_user }}"
@@ -34,12 +35,14 @@
     state: directory
     owner: "{{ aegir_user }}"
     group: "{{ aegir_user }}"
+
 - name: Create ~/.drush/ for '{{ aegir_user }}' user.
   file:
     path: "{{ aegir_root }}/.drush"
     state: directory
     owner: "{{ aegir_user }}"
     group: "{{ aegir_user }}"
+
 - name: Clone Provision
   git:
     repo: "{{ aegir_provision_repo }}"
@@ -49,6 +52,24 @@
     update: "{{ aegir_provision_update }}"
   become: yes
   become_user: "{{ aegir_user }}"
+
+- name: Add Drush hooks directory
+  file:
+    path: "{{ aegir_root }}/.drush/gcoop_libre_aegir"
+    state: directory
+    owner: "{{ aegir_user }}"
+    group: "{{ aegir_user }}"
+    mode: '0755'
+
+- name: Add Drush hooks of Aegir role
+  template:
+    src: gcoop_libre_aegir.drush.inc.j2
+    dest: "{{ aegir_root }}/.drush/gcoop_libre_aegir/gcoop_libre_aegir.drush.inc"
+    owner: "{{ aegir_user }}"
+    group: "{{ aegir_user }}"
+    mode: '0664'
+  notify: Clear Drush cache
+
 - name: Clear Drush cache for Provision extension
   command: drush @none cc drush
   args:
