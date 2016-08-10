@@ -106,6 +106,11 @@ Here you can specify other vars for the settings.php files. Each config must be 
 
 The SSL protocols and cipher suites that are used/allowed when clients make secure connections to your server. These are secure/sane defaults, but for maximum security, performand, and/or compatibility, you may need to adjust these settings. You may find some information in [Cipherli.st: Strong Ciphers for Apache, nginx and Lighttpd](https://cipherli.st/).
 
+    aegir_server_access_log_format_combined: '%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"'
+    aegir_server_access_log_format_proxy: '%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"'
+
+With this properties you can customize the Combined log format and the log format used to log the requests made through a proxy.
+
     aegir_server_ssl_extras: []
 
 Here you can specify other vars for the configuration files of Apache SSL Servers. Each config must be a dictionary with two indexes: `name` for the Apache config name and `value` for the corresponding value.
@@ -122,9 +127,17 @@ With this configuration as `On`, Apache will use always `ServerName` as the host
 
 Generate different access and error log files for every site. By default, Aegir uses only an access file and an error file for all the sites.
 
+    aegir_vhost_separate_logs_proxy_format: true
+
+Use different format for the access log files if a request is received from a proxy cache.
+
     aegir_vhost_deflate: true
 
 Enable Deflate mode in Apache.
+
+    aegir_vhost_deflate_dont_vary: User-Agent
+
+HTTP Header to add to the Vary header when `dont-vary` enviroment variable is set.
 
     aegir_vhost_fileetag: true
 
