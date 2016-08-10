@@ -42,9 +42,12 @@ aegir_server_ssl_honor_cipher_order: 'On'
 aegir_server_ssl_compression: 'Off'
 aegir_server_ssl_use_stapling: 'On'
 aegir_server_ssl_extras: []
+aegir_server_access_log_format_combined: '%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"'
+aegir_server_access_log_format_proxy: '%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"'
 aegir_server_extras: []
 aegir_vhost_use_canonical_name: 'On'
 aegir_vhost_separate_logs: true
+aegir_vhost_separate_logs_proxy_format: true
 aegir_vhost_deflate: true
 aegir_vhost_fileetag: true
 aegir_vhost_frame_options: SAMEORIGIN
