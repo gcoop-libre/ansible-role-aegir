@@ -135,6 +135,10 @@ Use different format for the access log files if a request is received from a pr
 
 Enable Deflate mode in Apache.
 
+    aegir_vhost_deflate_dont_vary: User-Agent
+
+HTTP Header to add to the Vary header when `dont-vary` enviroment variable is set.
+
     aegir_vhost_fileetag: true
 
 Enable the use of FileETag headers.

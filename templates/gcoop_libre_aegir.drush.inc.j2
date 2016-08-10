@@ -97,7 +97,9 @@ function gcoop_libre_aegir_provision_apache_vhost_config($uri, $data) {
   $extra_config[] = 'BrowserMatch ^Mozilla/4\.0[678] no-gzip';
   $extra_config[] = 'BrowserMatch \bMSIE !no-gzip !gzip-only-text/html';
   $extra_config[] = 'SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|rar|zip|exe|flv|mov|wma|mp3|avi|swf|mp?g)$ no-gzip dont-vary';
-  $extra_config[] = 'Header append Vary User-Agent env=!dont-vary';
+{% if deflate_dont_vary | default('User-Agent') %}
+  $extra_config[] = 'Header append Vary {{ deflate_dont_vary | default('User-Agent') }} env=!dont-vary';
+{% endif %}
 {% endif %}
 {% if aegir_vhost_fileetag %}
   $extra_config[] = 'FileETag MTime Size';

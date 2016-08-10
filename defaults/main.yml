@@ -49,6 +49,7 @@ aegir_vhost_use_canonical_name: 'On'
 aegir_vhost_separate_logs: true
 aegir_vhost_separate_logs_proxy_format: true
 aegir_vhost_deflate: true
+aegir_vhost_deflate_dont_vary: User-Agent
 aegir_vhost_fileetag: true
 aegir_vhost_frame_options: SAMEORIGIN
 aegir_vhost_sts: true
