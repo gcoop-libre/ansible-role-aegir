@@ -87,6 +87,11 @@ This property defines if the SSH Keypair for Aegir's system user will be generat
 
 Disable mail sending using the Devel module.
 
+    aegir_settings_mail_disable_exceptions:
+      - "{{ aegir_frontend_url }}" }}"
+
+List of uris to exclude when disabling mail sending with the Devel module.
+
     aegir_settings_syslog: true
     aegir_settings_syslog_facility: 128
     aegir_settings_syslog_format: '!base_url|!timestamp|!type|!ip|!request_uri|!referer|!uid|!link|!message'
