@@ -148,10 +148,6 @@ HTTP Header to add to the Vary header when `dont-vary` enviroment variable is se
 
 Enable the use of FileETag headers.
 
-    aegir_vhost_frame_options: SAMEORIGIN
-
-This property set the security policy of the sites when they are loaded within a Frame or IFrame. You can check the valid options in [this Wikipedia Article](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields#Frame-Options).
-
     aegir_vhost_sts: true
     aegir_vhost_sts_max_age: 63072000
     aegir_vhost_sts_subdomains: true
