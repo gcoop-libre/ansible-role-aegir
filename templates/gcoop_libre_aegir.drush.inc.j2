@@ -14,8 +14,16 @@ function gcoop_libre_aegir_provision_drupal_config($uri, $data) {
   $extra_config = array();
 
 {% if aegir_settings_mail_disable %}
-  $extra_config[] = '// Write mails to files in temporary directory (needs devel enabled).';
-  $extra_config[] = '$conf[\'mail_system\'] = array(\'default-system\' => \'DevelMailLog\');';
+  $disable_mail_exceptions = array(
+{% for uri in aegir_settings_mail_disable_exceptions %}
+    '{{ uri }}',
+{% endfor %}
+  );
+
+  if (!in_array($uri, $disable_mail_exceptions)) {
+    $extra_config[] = '// Write mails to files in temporary directory (needs devel enabled).';
+    $extra_config[] = '$conf[\'mail_system\'] = array(\'default-system\' => \'DevelMailLog\');';
+  }
 {% endif %}
 
   $identity = strtolower($uri);

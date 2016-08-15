@@ -31,6 +31,8 @@ aegir_platform_version: 7.x-3.x
 aegir_frontend_url: aegir.local
 aegir_generate_keypair: true
 aegir_settings_mail_disable: false
+aegir_settings_mail_disable_exceptions:
+  - "{{ aegir_frontend_url }}"
 aegir_settings_syslog: true
 aegir_settings_syslog_facility: 128
 aegir_settings_syslog_format: '!base_url|!timestamp|!type|!ip|!request_uri|!referer|!uid|!link|!message'
