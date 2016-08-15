@@ -112,8 +112,6 @@ function gcoop_libre_aegir_provision_apache_vhost_config($uri, $data) {
 {% if aegir_vhost_fileetag %}
   $extra_config[] = 'FileETag MTime Size';
 {% endif %}
-  $extra_config[] = 'Header always set X-Frame-Options {{ aegir_vhost_frame_options }}';
-  $extra_config[] = 'Header always set X-Content-Type-Options nosniff';
 {% if aegir_vhost_sts %}
   $extra_config[] = 'Header always set Strict-Transport-Security "max-age={{ aegir_vhost_sts_max_age }}; {% if aegir_vhost_sts_subdomains %}includeSubDomains{% endif %}" env=HTTPS';
 {% endif %}
