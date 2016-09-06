@@ -57,3 +57,4 @@ aegir_vhost_sts: true
 aegir_vhost_sts_max_age: 63072000
 aegir_vhost_sts_subdomains: true
 aegir_vhost_extras: []
+aegir_extra_vhosts: []
