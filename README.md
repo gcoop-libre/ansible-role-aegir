@@ -158,6 +158,10 @@ HTTP Strict Transport Security is enabled by default, with a Max Age of 1 year a
 
 Here you can specify other vars for the configuration files of Apache Virtual Hosts. Each config must be a dictionary with two indexes: `name` for the Apache config name and `value` for the corresponding value.
 
+    aegir_extra_vhosts: []
+
+Virtual hosts that would be created besides the basic configuration of Aegir Virtual Hosts. See [Apache role](https://github.com/gcoop-libre/ansible-role-apache) README for the accepted values.
+
 Dependencies
 ------------
 
