@@ -185,6 +185,6 @@ MIT / BSD
 Author Information
 ------------------
 
-This role was modified by [gcoop Cooperativa de Software Libre](http://gcoop.coop) in 2016.
+This role was modified by [gcoop Cooperativa de Software Libre](https://www.gcoop.coop) in 2016.
 
 It was originally created in 2015 by [Christopher Gervais](http://ergonlogic.com/), lead maintainer of the [Aegir Hosting System](http://www.aegirproject.org).
