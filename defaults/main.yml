@@ -21,7 +21,7 @@ aegir_dependencies:
 aegir_install_additional_packages: true
 aegir_additional_packages:
   - php5-curl
-aegir_provision_repo: http://git.drupal.org/project/provision.git
+aegir_provision_repo: https://git.drupal.org/project/provision.git
 aegir_provision_version: 7.x-3.x
 aegir_provision_update: false
 aegir_http_service_type: apache

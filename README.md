@@ -59,7 +59,7 @@ This properties enables the management of the Aegir dependencies and establishes
 
 This properties enables the installation of aditional packages for Aegir and establishes the system packages that will be installed.
 
-    aegir_provision_repo: http://git.drupal.org/project/provision.git
+    aegir_provision_repo: https://git.drupal.org/project/provision.git
     aegir_provision_version: 7.x-3.x
     aegir_provision_update: false
 
