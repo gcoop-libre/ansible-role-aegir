@@ -9,5 +9,5 @@ projects[drupal][type] = "core"
 ; chain into hostmaster from git's 3.x branch
 projects[hostmaster][type] = "profile"
 projects[hostmaster][download][type] = "git"
-projects[hostmaster][download][url] = "http://git.drupal.org/project/hostmaster.git"
+projects[hostmaster][download][url] = "https://git.drupal.org/project/hostmaster.git"
 projects[hostmaster][download][branch] = "7.x-3.x"

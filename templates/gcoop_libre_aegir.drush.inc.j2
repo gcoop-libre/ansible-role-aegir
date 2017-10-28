@@ -26,6 +26,13 @@ function gcoop_libre_aegir_provision_drupal_config($uri, $data) {
   }
 {% endif %}
 
+{% if aegir_settings_reverse_proxy_addresses %}
+  $extra_config[] = '// Enable reverse proxy support for ip_address().';
+  $extra_config[] = '$conf[\'reverse_proxy\'] = TRUE;';
+  $extra_config[] = '$conf[\'reverse_proxy_header\'] = \'{{ aegir_settings_reverse_proxy_header }}\';';
+  $extra_config[] = '$conf[\'reverse_proxy_addresses\'] = array(\'{{ aegir_settings_reverse_proxy_addresses | join("\\', \\'") }}\');';
+{% endif %}
+
   $identity = strtolower($uri);
 
   $settings = array();

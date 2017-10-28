@@ -47,7 +47,6 @@
   git:
     repo: "{{ aegir_provision_repo }}"
     dest: "{{ aegir_root }}/.drush/provision"
-    depth: 1 # speeds things up
     version: "{{ aegir_provision_version }}"
     update: "{{ aegir_provision_update }}"
   become: yes

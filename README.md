@@ -59,7 +59,7 @@ This properties enables the management of the Aegir dependencies and establishes
 
 This properties enables the installation of aditional packages for Aegir and establishes the system packages that will be installed.
 
-    aegir_provision_repo: http://git.drupal.org/project/provision.git
+    aegir_provision_repo: https://git.drupal.org/project/provision.git
     aegir_provision_version: 7.x-3.x
     aegir_provision_update: false
 
@@ -185,6 +185,6 @@ MIT / BSD
 Author Information
 ------------------
 
-This role was modified by [gcoop Cooperativa de Software Libre](http://gcoop.coop) in 2016.
+This role was modified by [gcoop Cooperativa de Software Libre](https://www.gcoop.coop) in 2016.
 
 It was originally created in 2015 by [Christopher Gervais](http://ergonlogic.com/), lead maintainer of the [Aegir Hosting System](http://www.aegirproject.org).
